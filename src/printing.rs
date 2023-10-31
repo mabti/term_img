@@ -49,8 +49,23 @@ const RGB_TERM_COLOURS: [Rgb<u8>; 16] = [
     Rgb([255, 255, 255]),
 ];
 
-const TERM_COLOURS: [u8; 16] = [
-    30, 31, 32, 33, 34, 35, 36, 37, 90, 91, 92, 93, 94, 95, 96, 97,
+const TERM_COLOURS: [TermColor; 16] = [
+    TermColor::Black,
+    TermColor::DarkRed,
+    TermColor::DarkGreen,
+    TermColor::DarkYellow,
+    TermColor::DarkBlue,
+    TermColor::DarkMagenta,
+    TermColor::DarkCyan,
+    TermColor::Grey,
+    TermColor::DarkGrey,
+    TermColor::Red,
+    TermColor::Green,
+    TermColor::Yellow,
+    TermColor::Blue,
+    TermColor::Magenta,
+    TermColor::Cyan,
+    TermColor::White,
 ];
 
 fn colour_distance(a: Rgb<u8>, b: Rgb<u8>) -> isize {
@@ -88,10 +103,9 @@ pub fn print_img_ansi(img: &RgbImage, stdout: &mut StdoutLock) -> IOResult<()> {
     for y in 0..height {
         for x in 0..width {
             let closest_colour_idx = calc_closest_term_color(*img.get_pixel(x, y));
-            let ansi_code = TERM_COLOURS[closest_colour_idx];
+            let colour = TERM_COLOURS[closest_colour_idx];
 
-            let color = TermColor::AnsiValue(ansi_code);
-            print_pixel(stdout, x as u16, y as u16, color)?;
+            print_pixel(stdout, x as u16, y as u16, colour)?;
         }
     }
 

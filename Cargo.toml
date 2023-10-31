@@ -9,7 +9,7 @@ about = "Command line util to print an image as coloured pixels."
 
 [profile.release]
 opt-level = 3
-lto = "fat"
+# lto = "fat"
 # strip = true
 
 [dependencies]
